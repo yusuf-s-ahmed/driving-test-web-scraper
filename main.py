@@ -11,13 +11,18 @@ load_dotenv()
 url = "https://lidt.co.uk/fast-track-booking"
 html = requests.get(url).text
 
+
+
 pattern = re.compile(
-    r"(Herne|Wood Green|Loughton|Belvedere|Erith|Sidcup|Bromley).*?(Mon|Tue|Wed|Thu|Fri|Sat|Sun).*?\d{2}:\d{2}",
+    r"(Herne|Wood Green|Loughton|Belvedere|Erith|Sidcup|Bromley).*?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec).*?\d{2}:\d{2}",
     re.DOTALL
 )
 
+
 matches = pattern.findall(html)
 target_centres = ["Erith", "Sidcup", "Bromley", "Belvedere"]
+target_months = ["Feb", "March"]
+
 
 # Email settings
 
@@ -46,12 +51,15 @@ def send_email(centre, day):
 
 sent_slots = set()  # to track & avoid duplicate emails
 
+sent_slots = set()
+
 if not matches:
     print("No slots found")
 else:
     for centre, day in matches:
         slot_key = f"{centre}-{day}"
-        if centre in target_centres:
+
+        if centre in target_centres and day in target_months:
             if slot_key not in sent_slots:
                 print(f"✓ Slot(s) found at {centre} on {day}")
                 send_email(centre, day)
@@ -59,4 +67,4 @@ else:
             else:
                 print(f"Skipping duplicate slot at {centre} on {day}")
         else:
-            print(f"Skipping {centre}")
+            print(f"Skipping {centre} on {day}")
