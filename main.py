@@ -20,8 +20,8 @@ pattern = re.compile(
 
 
 matches = pattern.findall(html)
-target_centres = ["Erith", "Sidcup", "Bromley", "Belvedere"]
-target_months = ["Feb", "March"]
+target_centres = ["Erith", "Sidcup", "Belvedere"]
+target_months = ["June"]
 
 
 # Email settings
