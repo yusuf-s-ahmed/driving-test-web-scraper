@@ -53,6 +53,11 @@ sent_slots = set()  # to track & avoid duplicate emails
 
 sent_slots = set()
 
+def display_config():
+    print(f"Loaded email(s): {TO_EMAILS}")
+    print(f"Target centre(s): {target_centres}")
+    print(f"Target month(s): {target_months}")
+
 if not matches:
     print("No slots found")
 else:
